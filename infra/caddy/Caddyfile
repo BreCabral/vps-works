@@ -1,3 +1,7 @@
-brenocabral.com, localhost {
-    reverse_proxy /todo/* todo-list:8080
+{
+	auto_https {$CADDY_AUTO_HTTPS}
+}
+
+{$CADDY_DOMAIN}:{$CADDY_PORT} {
+	reverse_proxy /todo* todo-list:8080
 }
