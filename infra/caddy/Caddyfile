@@ -1,0 +1,3 @@
+brenocabral.com, localhost {
+    reverse_proxy todo-list:8080
+}
