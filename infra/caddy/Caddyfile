@@ -1,3 +1,3 @@
 brenocabral.com, localhost {
-    reverse_proxy todo-list:8080
+    reverse_proxy /todo/* todo-list:8080
 }

@@ -34,8 +34,8 @@ func postTask(c *gin.Context) {
 
 func main() {
 	router := gin.Default()
-	router.GET("/list", getTasks)
-	router.POST("/add_task", postTask)
+	router.GET("/todo/list", getTasks)
+	router.POST("/todo/add_task", postTask)
 
 	router.Run(":8080")
 }
