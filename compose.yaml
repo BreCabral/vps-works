@@ -1,6 +1,22 @@
 services:
+
+  caddy:
+    image: caddy:2.9.1-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./infra/caddy:/etc/caddy
+      - caddy_data:/data
+      - caddy_config:/config
+
   todo-list:
     build: ./todo-list
     ports:
       - "8080:8080"
     restart: always
+
+volumes:
+  caddy_data:
+  caddy_config:
