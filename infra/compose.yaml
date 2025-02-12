@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
 
   caddy:
@@ -9,7 +7,7 @@ services:
       - "${CADDY_PORT}:${CADDY_PORT}"
       - "${CADDY_PORT_SSL}:${CADDY_PORT_SSL}"
     volumes:
-      - ./infra/caddy:/etc/caddy
+      - ./caddy:/etc/caddy
       - caddy_data:/data
       - caddy_config:/config
     env_file:
@@ -26,7 +24,7 @@ services:
       - works-network
 
   todo-list:
-    build: ./todo-list
+    build: ../todo-list
     restart: always
     networks:
       - works-network
