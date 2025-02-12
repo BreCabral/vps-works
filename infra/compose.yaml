@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
 
   caddy:
@@ -9,7 +7,7 @@ services:
       - "${CADDY_PORT}:${CADDY_PORT}"
       - "${CADDY_PORT_SSL}:${CADDY_PORT_SSL}"
     volumes:
-      - ./infra/caddy:/etc/caddy
+      - ./caddy:/etc/caddy
       - caddy_data:/data
       - caddy_config:/config
     env_file:
@@ -20,16 +18,22 @@ services:
   postgres:
     image: postgres:17.2-alpine
     restart: always
+    volumes:
+      - ./.postgres:/var/lib/postgresql/data
     env_file:
       -  .env
     networks:
       - works-network
 
   todo-list:
-    build: ./todo-list
+    build: ../todo-list
     restart: always
+    env_file:
+      - .env
     networks:
       - works-network
+    depends_on:
+      - postgres
 
 volumes:
   caddy_data:
