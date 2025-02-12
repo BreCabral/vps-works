@@ -18,6 +18,8 @@ services:
   postgres:
     image: postgres:17.2-alpine
     restart: always
+    volumes:
+      - ./.postgres:/var/lib/postgresql/data
     env_file:
       -  .env
     networks:
@@ -26,8 +28,12 @@ services:
   todo-list:
     build: ../todo-list
     restart: always
+    env_file:
+      - .env
     networks:
       - works-network
+    depends_on:
+      - postgres
 
 volumes:
   caddy_data:
