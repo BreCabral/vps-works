@@ -7,11 +7,11 @@ services:
       - "${CADDY_PORT}:${CADDY_PORT}"
       - "${CADDY_PORT_SSL}:${CADDY_PORT_SSL}"
     volumes:
-      - ./caddy:/etc/caddy
+      - ./infra/caddy:/etc/caddy
       - caddy_data:/data
       - caddy_config:/config
     env_file:
-      -  .env
+      - .env
     networks:
       - works-network
 
@@ -19,14 +19,14 @@ services:
     image: postgres:17.2-alpine
     restart: always
     volumes:
-      - ./.postgres:/var/lib/postgresql/data
+      - ${POSTGRES_PERSIST_VOLUME}:/var/lib/postgresql/data
     env_file:
-      -  .env
+      - .env
     networks:
       - works-network
 
   todo-list:
-    build: ../todo-list
+    build: todo-list
     restart: always
     env_file:
       - .env
@@ -42,4 +42,3 @@ volumes:
 networks:
   works-network:
     driver: bridge
-    
