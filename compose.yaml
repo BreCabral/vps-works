@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
 
   caddy:
@@ -13,23 +11,29 @@ services:
       - caddy_data:/data
       - caddy_config:/config
     env_file:
-      -  .env
+      - .env
     networks:
       - works-network
 
   postgres:
     image: postgres:17.2-alpine
     restart: always
+    volumes:
+      - ${POSTGRES_PERSIST_VOLUME}:/var/lib/postgresql/data
     env_file:
-      -  .env
+      - .env
     networks:
       - works-network
 
   todo-list:
-    build: ./todo-list
+    build: todo-list
     restart: always
+    env_file:
+      - .env
     networks:
       - works-network
+    depends_on:
+      - postgres
 
 volumes:
   caddy_data:
@@ -38,4 +42,3 @@ volumes:
 networks:
   works-network:
     driver: bridge
-    
