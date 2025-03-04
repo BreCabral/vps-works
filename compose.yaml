@@ -25,6 +25,16 @@ services:
     networks:
       - works-network
 
+  user-auth:
+    build: user-auth
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - works-network
+    depends_on:
+      - postgres
+
   todo-list:
     build: todo-list
     restart: always

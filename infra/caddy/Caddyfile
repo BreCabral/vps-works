@@ -1,3 +1,4 @@
 {$CADDY_DOMAIN}:{$CADDY_PORT} {
 	reverse_proxy /todo* todo-list:8080
+	reverse_proxy /user* user-auth:8080
 }
